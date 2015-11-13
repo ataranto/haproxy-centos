@@ -1,30 +1,26 @@
 %define haproxy_user    haproxy
-%define haproxy_uid     188
-%define haproxy_group   haproxy
-%define haproxy_gid     188
+%define haproxy_group   %{haproxy_user}
 %define haproxy_home    %{_localstatedir}/lib/haproxy
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
 
-%define version 1.5.3
-#%define dev_rel dev25
-#%define release 1
+Name:           haproxy
+Version:        1.5.15
+Release:        1%{?dist}
+Summary:        HAProxy reverse proxy for high availability environments
 
-Name: haproxy
-Summary: HA-Proxy is a TCP/HTTP reverse proxy for high availability environments
-Version: %{version}
-Release: %{release}%{?dist}
-License: GPLv2+
-URL: http://www.haproxy.org/
-Group: System Environment/Daemons
+Group:          System Environment/Daemons
+License:        GPLv2+
 
-Source0: http://www.haproxy.org/download/1.5/src/haproxy-%{version}.tar.gz
-Source1: haproxy.init
-Source2: haproxy.cfg
-Source3: haproxy.logrotate
+URL:            http://www.haproxy.org/
+Source0:        http://www.haproxy.org/download/1.5/src/haproxy-%{version}.tar.gz
 
-Requires(pre): %{_sbindir}/groupadd
-Requires(pre): %{_sbindir}/useradd
+Source1:        %{name}.init
+Source2:        %{name}.cfg
+Source3:        %{name}.logrotate
+
+Requires(pre):  %{_sbindir}/groupadd
+Requires(pre):  %{_sbindir}/useradd
 Requires(post): /sbin/chkconfig
 Requires(preun): /sbin/chkconfig
 Requires(preun): /sbin/service
@@ -53,7 +49,7 @@ possibility not to expose fragile web servers to the net.
 use_regparm="USE_REGPARM=1"
 %endif
 
-make %{?_smp_mflags} CPU="generic" TARGET="linux26" USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 ${use_regparm}
+make %{?_smp_mflags} CPU="generic" TARGET="linux2628" USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 ${use_regparm}
 
 pushd contrib/halog
 make halog
@@ -83,8 +79,8 @@ done
 rm -rf %{buildroot}
 
 %pre
-%{_sbindir}/groupadd -g %{haproxy_gid} -r %{haproxy_group} 2>/dev/null || :
-%{_sbindir}/useradd -u %{haproxy_uid} -g %{haproxy_group} -d %{haproxy_home} -s /sbin/nologin -r %{haproxy_user} 2>/dev/null || :
+%{_sbindir}/groupadd -r %{haproxy_group} 2>/dev/null || :
+%{_sbindir}/useradd -g %{haproxy_group} -d %{haproxy_home} -s /sbin/nologin -r %{haproxy_user} 2>/dev/null || :
 
 %post
 /sbin/chkconfig --add haproxy
@@ -121,6 +117,9 @@ fi
 %exclude %{_sbindir}/haproxy-systemd-wrapper
 
 %changelog
+* Fri Nov 13 2015 Anthony Taranto <anthony.taranto@gmail.com> - 1.5.15
+- Update to haproxy 1.5.15
+
 * Wed Aug 20 2014 Alan Ivey <alanivey@gmail.com> - 1.5.3
 - Update to haproxy 1.5.3
 - Add %{dist} to Release
