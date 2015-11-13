@@ -12,7 +12,7 @@ Install rpmdevtools from the [EPEL][epel] repository:
 ## Install Prerequisites for RPM Creation
 
     sudo yum groupinstall 'Development Tools'
-    sudo yum install openssl-devel
+    sudo yum install openssl-devel zlib-devel
 
 ## Download haproxy
 
