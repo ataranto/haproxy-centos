@@ -5,7 +5,7 @@
 %define haproxy_datadir %{_datadir}/haproxy
 
 Name:           haproxy
-Version:        1.5.15
+Version:        1.8.5
 Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
@@ -13,7 +13,7 @@ Group:          System Environment/Daemons
 License:        GPLv2+
 
 URL:            http://www.haproxy.org/
-Source0:        http://www.haproxy.org/download/1.5/src/haproxy-%{version}.tar.gz
+Source0:        http://www.haproxy.org/download/1.8/src/haproxy-%{version}.tar.gz
 
 Source1:        %{name}.init
 Source2:        %{name}.cfg
@@ -99,12 +99,13 @@ fi
 %files
 %defattr(-,root,root,-)
 %doc CHANGELOG LICENSE README doc/*
-%doc examples/url-switching.cfg
 %doc examples/acl-content-sw.cfg
+%doc examples/auth.cfg
 %doc examples/content-sw-sample.cfg
-%doc examples/cttproxy-src.cfg
-%doc examples/haproxy.cfg
-%doc examples/tarpit.cfg
+%doc examples/option-http_proxy.cfg
+%doc examples/ssl.cfg
+%doc examples/transparent_proxy.cfg
+%doc examples/wurfl-example.cfg
 %{haproxy_datadir}
 %dir %{haproxy_confdir}
 %config(noreplace) %{haproxy_confdir}/%{name}.cfg
@@ -114,9 +115,11 @@ fi
 %{_bindir}/halog
 %{_mandir}/man1/%{name}.1.gz
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_home}
-%exclude %{_sbindir}/haproxy-systemd-wrapper
 
 %changelog
+* Thu Mar 29 2018 Anthony Taranto <anthony.taranto@gmail.com> - 1.8.5
+- Update to haproxy 1.8.5
+
 * Fri Nov 13 2015 Anthony Taranto <anthony.taranto@gmail.com> - 1.5.15
 - Update to haproxy 1.5.15
 
