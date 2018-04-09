@@ -5,7 +5,7 @@
 %define haproxy_datadir %{_datadir}/haproxy
 
 Name:           haproxy
-Version:        1.8.5
+Version:        1.8.7
 Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
@@ -117,6 +117,9 @@ fi
 %attr(-,%{haproxy_user},%{haproxy_group}) %dir %{haproxy_home}
 
 %changelog
+* Mon Apr 09 2018 Anthony Taranto <anthony.taranto@gmail.com> - 1.8.7
+- Update to haproxy 1.8.7
+
 * Thu Mar 29 2018 Anthony Taranto <anthony.taranto@gmail.com> - 1.8.5
 - Update to haproxy 1.8.5
 

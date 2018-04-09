@@ -16,12 +16,12 @@ Install rpmdevtools from the [EPEL][epel] repository:
 
 ## Download haproxy
 
-    wget http://www.haproxy.org/download/1.8/src/haproxy-1.8.5.tar.gz
-    mv haproxy-1.8.5.tar.gz ~/rpmbuild/SOURCES/
+    wget http://www.haproxy.org/download/1.8/src/haproxy-1.8.7.tar.gz
+    mv haproxy-1.8.7.tar.gz ~/rpmbuild/SOURCES/
 
 ## Get Necessary System-specific Configs
 
-    git clone git://github.com/bluerail/haproxy-centos.git
+    git clone git://github.com/ataranto/haproxy-centos.git
     cp haproxy-centos/conf/* ~/rpmbuild/SOURCES/
     cp haproxy-centos/spec/* ~/rpmbuild/SPECS/
 
